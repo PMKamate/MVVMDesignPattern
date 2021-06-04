@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">MVVMDemo</string>
     <string name="toolbar_name">Restaurant List</string>
+    <string name="description">Description</string>
+    <string name="address">Address</string>
 </resources>
