@@ -11,6 +11,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.manektech.R
+import com.manektech.data.entities.RestaurantItem
 
 class MapsFragment : Fragment() {
 
@@ -24,7 +25,16 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val sydney = LatLng(-34.0, 151.0)
+        val restaurantItemlat =arguments?.getString("lat")
+        val restaurantItemlong =arguments?.getString("longg")
+        val sydney = restaurantItemlong?.toDouble()?.let {
+            restaurantItemlat?.toDouble()?.let { it1 ->
+                LatLng(
+                    it1,
+                    it
+                )
+            }
+        }
         googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }

@@ -40,7 +40,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.restaurantdetail.RestaurantDetailsActivity"></activity>
+        <activity
+            android:name=".ui.restaurantdetail.RestaurantDetailsActivity"
+            android:theme="@style/Theme.MVVMDemo1" />
     </application>
 
 </manifest>

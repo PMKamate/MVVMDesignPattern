@@ -34,7 +34,7 @@ class RestaurantItemResponse {
     var pincode: Int? = null
 
     @JsonProperty("long")
-    var _long: String? = null
+    var long: String? = null
 
     @JsonProperty("lat")
     var lat: String? = null

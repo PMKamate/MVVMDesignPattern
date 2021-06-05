@@ -2,6 +2,7 @@ package com.manektech.ui.restaurantList
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,9 +68,13 @@ class RestaurantFragment : Fragment(), RestaurantListAdapter.RestaurantItemListe
 
     override fun onClickedRestaurant(restaurantItem: RestaurantItem, isMapclick: Boolean) {
         if(isMapclick){
+            Log.d("Test: ",""+restaurantItem)
+            val bundle = Bundle()
+            bundle.putString("lat", restaurantItem.lat)
+            bundle.putString("longg", restaurantItem.longdb)
             findNavController().navigate(
                 R.id.action_restaurantFragment_to_mapsFragment,
-                bundleOf("id" to restaurantItem.id)
+                bundle
             )
         }else {
            /* findNavController().navigate(

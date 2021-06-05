@@ -20,7 +20,7 @@ data class RestaurantItem(
     var state: String? = null,
     var country: String? = null,
     var pincode: Int? = null,
-    var long: String? = null,
+    var longdb: String? = null,
     var lat: String? = null,
     var created_at: String? = null,
     var updated_at: String? = null

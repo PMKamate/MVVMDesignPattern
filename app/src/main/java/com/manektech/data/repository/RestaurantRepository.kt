@@ -55,7 +55,7 @@ class RestaurantRepository @Inject constructor(
                         item.state,
                         item.country,
                         item.pincode,
-                        item._long,
+                        item.long,
                         item.lat,
                         item.createdAt,
                         item.updatedAt,
@@ -63,13 +63,16 @@ class RestaurantRepository @Inject constructor(
                 )
                 item.img?.let { it1 ->
                     for (image1 in it1) {
-                        imageList.add(Image(
-                            image1.id,
-                            image1.mainId,
-                            image1.image,
-                            image1.createdAt,
-                            image1.updatedAt
-                        ))
+                        image1.image?.let {
+                            imageList.add(Image(
+                                image1.id,
+                                image1.mainId,
+                                image1.image,
+                                image1.createdAt,
+                                image1.updatedAt
+                            ))
+                        }
+
                     }
                 }
             }

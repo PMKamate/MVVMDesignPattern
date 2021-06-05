@@ -1,19 +1,26 @@
 package com.manektech.ui.restaurantdetail
 
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import android.view.WindowManager
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
+import android.view.View
+import android.widget.TextView.BufferType
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.google.android.material.appbar.AppBarLayout
+import com.manektech.R
 import com.manektech.data.entities.Image
 import com.manektech.data.entities.RestaurantItem
-import com.manektech.databinding.ActivityReataurantDetailBinding
+import com.manektech.databinding.ActivityRestaurantDetailBinding
 import com.manektech.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_reataurant_detail.*
+import kotlinx.android.synthetic.main.activity_restaurant_detail.*
+
 
 @AndroidEntryPoint
 class RestaurantDetailsActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
@@ -22,7 +29,7 @@ class RestaurantDetailsActivity : AppCompatActivity(), AppBarLayout.OnOffsetChan
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityReataurantDetailBinding = ActivityReataurantDetailBinding.inflate(
+        val binding: ActivityRestaurantDetailBinding = ActivityRestaurantDetailBinding.inflate(
             layoutInflater
         )
         setContentView(binding.root)
@@ -31,12 +38,16 @@ class RestaurantDetailsActivity : AppCompatActivity(), AppBarLayout.OnOffsetChan
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         collapsing_toolbar.setTitle("")
         appbar.addOnOffsetChangedListener(this)
-        getWindow()?.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+        window.statusBarColor = Color.TRANSPARENT
+       //  window.setStatusBarColor(ContextCompat.getColor(this,R.color.colorWhiteTenOpacity));
+       // window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         val extras = intent.extras
         val str = extras?.getInt("id")
         str?.let { viewModel.start(it) }
         setupObservers(binding)
-
+        setSpannableStringBuilder()
     }
     override fun onBackPressed() {
         super.onBackPressed()
@@ -58,7 +69,7 @@ class RestaurantDetailsActivity : AppCompatActivity(), AppBarLayout.OnOffsetChan
         }
     }
 
-    private fun setupObservers(binding: ActivityReataurantDetailBinding) {
+    private fun setupObservers(binding: ActivityRestaurantDetailBinding) {
         viewModel.restaurantItem.observe(this, Observer {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
@@ -93,7 +104,7 @@ class RestaurantDetailsActivity : AppCompatActivity(), AppBarLayout.OnOffsetChan
             }
         })
     }
-    private fun bindData(restaurantItem: RestaurantItem, binding: ActivityReataurantDetailBinding) {
+    private fun bindData(restaurantItem: RestaurantItem, binding: ActivityRestaurantDetailBinding) {
         binding.tvTitle.text = restaurantItem.title
         binding.tvMobileno.text = restaurantItem.phone_no.toString()
         restaurantItem.rating?.let {
@@ -103,5 +114,33 @@ class RestaurantDetailsActivity : AppCompatActivity(), AppBarLayout.OnOffsetChan
         }
         binding.tvDescriptionText.text = restaurantItem.description
         binding.tvAddressText.text = restaurantItem.address
+    }
+
+    fun setSpannableStringBuilder(){
+        val builder: SpannableStringBuilder = SpannableStringBuilder()
+
+        val red = "("
+        val redSpannable = SpannableString(red)
+        redSpannable.setSpan(ForegroundColorSpan(Color.BLACK), 0, red.length, 0)
+        builder.append(redSpannable)
+
+        val white = " 1000 "
+        val whiteSpannable = SpannableString(white)
+        whiteSpannable.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    this,
+                    R.color.star
+                )
+            ), 0, white.length, 0
+        )
+        builder.append(whiteSpannable)
+
+        val blue = "Reviews )"
+        val blueSpannable = SpannableString(blue)
+        blueSpannable.setSpan(ForegroundColorSpan(Color.BLACK), 0, blue.length, 0)
+        builder.append(blueSpannable)
+
+        tv_reviews.setText(builder, BufferType.SPANNABLE)
     }
 }

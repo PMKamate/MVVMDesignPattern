@@ -17,13 +17,8 @@ fun <T, A> performGetOperation(databaseQuery: () -> LiveData<T>,
 
         val responseStatus = networkCall.invoke()
         if (responseStatus.status == SUCCESS) {
-            Log.d("Test: error3",""+responseStatus.message)
-
             saveCallResult(responseStatus.data!!)
-
         } else if (responseStatus.status == ERROR) {
-            Log.d("Test: error4",""+responseStatus.message)
-
             emit(Resource.error(responseStatus.message!!))
             emitSource(source)
         }
