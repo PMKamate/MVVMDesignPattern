@@ -3,4 +3,7 @@
     <string name="toolbar_name">Restaurant List</string>
     <string name="description">Description</string>
     <string name="address">Address</string>
+    <string name="reviews">Reviews</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

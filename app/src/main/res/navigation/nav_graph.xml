@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/restaurantFragment">
+
+    <fragment
+        android:id="@+id/restaurantFragment"
+        android:name="com.manektech.ui.restaurantList.RestaurantFragment"
+        android:label="Restaurant"
+        tools:layout="@layout/restaurantlist_fragment" >
+        <action
+            android:id="@+id/action_restaurantFragment_to_restaurantDetailFragment"
+            app:destination="@id/restaurantDetailFragment" />
+        <action
+            android:id="@+id/action_restaurantFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantDetailFragment"
+        android:name="com.manektech.ui.restaurantdetail.RestaurantDetailFragment"
+        tools:layout="@layout/restaurantdetails_fragment" />
+
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:label="Map"
+        android:name="com.manektech.ui.location.MapsFragment"
+        tools:layout="@layout/fragment_maps" />
+</navigation>
