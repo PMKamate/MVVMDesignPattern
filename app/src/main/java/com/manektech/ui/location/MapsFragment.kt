@@ -27,7 +27,8 @@ class MapsFragment : Fragment() {
          */
         val restaurantItemlat =arguments?.getString("lat")
         val restaurantItemlong =arguments?.getString("longg")
-        val sydney = restaurantItemlong?.toDouble()?.let {
+        val restaurantItemtitle =arguments?.getString("title")
+        val title = restaurantItemlong?.toDouble()?.let {
             restaurantItemlat?.toDouble()?.let { it1 ->
                 LatLng(
                     it1,
@@ -35,8 +36,10 @@ class MapsFragment : Fragment() {
                 )
             }
         }
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        googleMap.addMarker(MarkerOptions().position(title).title(restaurantItemtitle))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(title))
+        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 17.0f ) );
+
     }
 
     override fun onCreateView(

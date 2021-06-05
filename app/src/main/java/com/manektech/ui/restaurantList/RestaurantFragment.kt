@@ -72,6 +72,7 @@ class RestaurantFragment : Fragment(), RestaurantListAdapter.RestaurantItemListe
             val bundle = Bundle()
             bundle.putString("lat", restaurantItem.lat)
             bundle.putString("longg", restaurantItem.longdb)
+            bundle.putString("title", restaurantItem.title)
             findNavController().navigate(
                 R.id.action_restaurantFragment_to_mapsFragment,
                 bundle
